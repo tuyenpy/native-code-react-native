@@ -1,5 +1,6 @@
 package com.reactnativedemo;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -7,6 +8,7 @@ import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -19,7 +21,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import java.util.Map;
 import java.util.HashMap;
 
-public class ToastModule extends ReactContextBaseJavaModule {
+public class ToastModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
     private static ReactApplicationContext reactContext;
 
     private static final String DURATION_SHORT_KEY = "SHORT";
@@ -28,6 +30,7 @@ public class ToastModule extends ReactContextBaseJavaModule {
     ToastModule(ReactApplicationContext context) {
         super(context);
         reactContext = context;
+        context.addLifecycleEventListener((LifecycleEventListener) this);
     }
 
     @NonNull
@@ -56,12 +59,12 @@ public class ToastModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void useCallback(Callback callback) {
-        callback.invoke("This is a callback");
+        callback.invoke("ToastModule This is a callback");
     }
 
     @ReactMethod
     public void usePromise(Promise promise) {
-        promise.resolve("This is a promise");
+        promise.resolve("ToastModule This is a promise");
     }
 
     //send event to react native
@@ -73,4 +76,18 @@ public class ToastModule extends ReactContextBaseJavaModule {
                 .emit(eventName, params);
     }
 
+    @Override
+    public void onHostResume() {
+        Log.d("Action", "ToastModule onHostResume");
+    }
+
+    @Override
+    public void onHostPause() {
+        Log.d("Action", "ToastModule onHostPause");
+    }
+
+    @Override
+    public void onHostDestroy() {
+        Log.d("Action", "ToastModule onHostDestroy");
+    }
 }

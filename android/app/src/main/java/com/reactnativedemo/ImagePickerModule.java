@@ -90,16 +90,16 @@ public class ImagePickerModule extends ReactContextBaseJavaModule implements Lif
 
     @Override
     public void onHostResume() {
-        Log.d("Action", "onHostResume");
+        Log.d("Action", "ImagePickerModule onHostResume");
     }
 
     @Override
     public void onHostPause() {
-        Log.d("Action", "onHostPause");
+        Log.d("Action", "ImagePickerModule onHostPause");
     }
 
     @Override
     public void onHostDestroy() {
-        Log.d("Action", "onHostDestroy");
+        Log.d("Action", "ImagePickerModule onHostDestroy");
     }
 }
